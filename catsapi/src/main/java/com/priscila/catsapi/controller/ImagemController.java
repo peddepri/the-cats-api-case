@@ -1,5 +1,6 @@
 package com.priscila.catsapi.controller;
 
+import com.priscila.catsapi.aop.MetricAndLog;
 import com.priscila.catsapi.service.ImagemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImagemController {
     private final ImagemService imagemService;
 
+    @MetricAndLog
     @PostMapping("/importar/chapeu")
     public ResponseEntity<Void> importarChapeu() {
         imagemService.importarImagensComCategoria("chapeu", 1);
         return ResponseEntity.ok().build();
     }
 
+    @MetricAndLog
     @PostMapping("/importar/oculos")
     public ResponseEntity<Void> importarOculos() {
         imagemService.importarImagensComCategoria("oculos", 4);

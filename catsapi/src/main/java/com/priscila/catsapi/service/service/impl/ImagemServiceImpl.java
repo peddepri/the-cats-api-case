@@ -1,5 +1,6 @@
 package com.priscila.catsapi.service.service.impl;
 
+import com.priscila.catsapi.aop.MetricAndLog;
 import com.priscila.catsapi.model.Imagem;
 import com.priscila.catsapi.repository.ImagemRepository;
 import com.priscila.catsapi.service.ImagemService;
@@ -20,6 +21,7 @@ public class ImagemServiceImpl implements ImagemService {
     private final ImagemRepository imagemRepository;
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @MetricAndLog
     @Override
     public void importarImagensComCategoria(String categoria, int categoryId) {
         String url = "https://api.thecatapi.com/v1/images/search?limit=3&category_ids=" + categoryId;
