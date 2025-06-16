@@ -103,6 +103,55 @@ Veja [src/main/resources/application.yml](src/main/resources/application.yml) pa
 - [`com.priscila.catsapi.model`](src/main/java/com/priscila/catsapi/model) — Entidades JPA
 - [`com.priscila.catsapi.repository`](src/main/java/com/priscila/catsapi/repository) — Repositórios Spring Data
 
+---
+
+##  Estratégia de Testes
+
+🔹 **1. Testes de Unidade (Unit Tests)**  
+**Objetivo:** Testar métodos isoladamente, sem dependências externas.  
+**Como aplicar:** Usando JUnit e Mockito.  
+**Exemplo:** Testar o método `importarRacas()` da `RacaServiceImpl`, simulando as chamadas da API externa com Mockito.  
+**Benefício:** Garante que cada pedaço da lógica funciona corretamente e permite refatorações seguras.
+
+🔹 **2. Testes Integrados (Integration Tests)**  
+**Objetivo:** Testar se os componentes funcionam juntos (ex: serviço + repositório + banco).  
+**Como aplicar:** Com `@SpringBootTest` e banco em memória H2.  
+**Exemplo:** Verificar se uma requisição à `/racas` persiste corretamente os dados no banco.  
+**Benefício:** Valida o comportamento do sistema como um todo, incluindo persistência.
+
+🔹 **3. Testes de Regressão**  
+**Objetivo:** Garantir que novas mudanças não quebrem funcionalidades já existentes.  
+**Como aplicar:** Automatizando testes de unidade e integração, e executando-os em cada build (CI/CD com GitHub Actions, por exemplo).  
+**Exemplo:** Testes da `ImagemService` e `RacaService` executados automaticamente após push no repositório.  
+**Benefício:** Dá confiança em cada alteração feita no código.
+
+🔹 **4. Testes de Performance**  
+**Objetivo:** Avaliar tempo de resposta e consumo de recursos sob carga.  
+**Como aplicar:** Com ferramentas como JMeter, Gatling ou Spring Actuator + Micrometer + Prometheus + Grafana.  
+**Exemplo:** Medir o tempo de resposta da API `/racas/importar` sob 100 requisições simultâneas.  
+**Benefício:** Garante que a aplicação se comporta bem mesmo com muitos usuários.
+
+🔹 **5. Testes de Resiliência**  
+**Objetivo:** Avaliar como o sistema reage a falhas externas.  
+**Como aplicar:** Simulando falhas com Mockito (ex: erro na API externa), ou usando ferramentas como Chaos Monkey for Spring Boot.  
+**Exemplo:** Simular falha no RestTemplate e verificar se a aplicação trata a exceção corretamente e retorna erro amigável.  
+**Benefício:** Aumenta a robustez da aplicação, prevenindo falhas em produção.
+
+🔹 **6. Testes de Cobertura (Code Coverage)**  
+**Objetivo:** Verificar o quanto do seu código foi testado.  
+**Como aplicar:** Usando Jacoco.  
+**Exemplo:** Acompanhar a porcentagem de cobertura de pacotes como controller, service, aop etc.  
+**Benefício:** Ajuda a identificar trechos de código não testados.
+
+🔹 **7. Testes Manuais com Pós-condições e Casos de Uso**  
+**Objetivo:** Validar casos que exigem análise visual ou humana.  
+**Como aplicar:** Criando um roteiro de testes com fluxos manuais (ex: cadastro de raça, consulta de imagens).  
+**Exemplo:** Verificar se o JSON de retorno traz todos os campos esperados, testando via Postman.  
+**Benefício:** Detecta problemas que automatizações podem não captar.
+
+**Bônus: Testes Automatizados com Selenium (para interfaces web)**  
+Se sua aplicação tiver frontend, você pode usar Selenium para validar cliques, campos, e comportamento visual.
+
 ## Licença
 
 MIT
