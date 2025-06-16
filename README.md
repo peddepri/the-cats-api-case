@@ -62,8 +62,9 @@ Para rodar com Docker Compose (app, H2, Prometheus, Grafana):
 Imagem disponibilizada no DockerHub.
 
 ```sh
-docker pull ppedde/catsapi:0.0.3
+docker pull ppedde/catsapi:0.0.1
 ```
+![Docker Hub interface showing the ppedde user namespace with three public repositories: catsapi-grafana, catsapi-prometheus, and catsapi. Each repository displays the last pushed time as about 11 hours ago, contains Docker images, and has public visibility. The interface includes navigation options for repositories, collaborations, settings, billing, usage, pulls, and storage. The overall tone is professional and organized, designed for managing Docker repositories.]
 
 ```sh
 docker-compose up
