@@ -17,23 +17,31 @@ spring:
     console:
       enabled: true
       path: /h2-console
-  management:
-    server:
-      port: 8080
+  output:
+    ansi:
+      enabled: DETECT
+  main:
+    banner-mode: off
 
-    endpoints:
-      web:
-        exposure:
-          include: "prometheus, health, info"
-    metrics:
-      export:
-        prometheus:
-          enabled: true
-  spring:
-    application:
-      name: catsapi
-    output:
-      ansi:
-        enabled: DETECT
-    main:
-      banner-mode: off
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    enabled: true
+    tags:
+      enabled: true
+
+logging:
+  pattern:
+    console: '%clr(%d{HH:mm:ss}){yellow} %clr([%-5.5thread]){magenta} %highlight(%-5.5level) %clr(%-30.30logger{10}){cyan} - %msg%n'
+  level:
+    root: INFO
+    org.springframework: WARN
+    com.priscila.catsapi: DEBUG

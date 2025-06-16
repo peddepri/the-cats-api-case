@@ -1,5 +1,6 @@
 package com.priscila.catsapi.service.service.impl;
 
+import com.priscila.catsapi.aop.MetricAndLog;
 import com.priscila.catsapi.dto.RacaDto;
 import com.priscila.catsapi.model.Raca;
 import com.priscila.catsapi.model.Imagem;
@@ -26,6 +27,7 @@ public class RacaServiceImpl implements RacaService  {
     private static final String API_RACAS = "https://api.thecatapi.com/v1/breeds";
     private static final String API_IMAGENS = "https://api.thecatapi.com/v1/images/search?limit=3&breed_ids={id}";
 
+    @MetricAndLog
     @Override
     public void importarRacas() {
         log.info("Buscando raças na API TheCatAPI...");
@@ -48,6 +50,7 @@ public class RacaServiceImpl implements RacaService  {
         }
     }
 
+    @MetricAndLog
     private void buscarImagensPorRaca(Raca raca) {
         String url = API_IMAGENS.replace("{id}", raca.getId());
 
