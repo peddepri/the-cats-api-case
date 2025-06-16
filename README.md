@@ -152,6 +152,90 @@ Veja [src/main/resources/application.yml](src/main/resources/application.yml) pa
 **Bônus: Testes Automatizados com Selenium (para interfaces web)**  
 Se sua aplicação tiver frontend, você pode usar Selenium para validar cliques, campos, e comportamento visual.
 
+##  Documentação da API CatsAPI
+
+### Endpoints Disponíveis
+
+#### 1. Raças de Gatos
+
+- **GET `/racas/importar`**  
+  Importa raças da API externa TheCatAPI e persiste no banco de dados.
+
+- **GET `/racas/{id}`**  
+  Retorna uma raça específica por ID.
+
+- **GET `/racas/temperamento/{valor}`**  
+  Lista raças com o temperamento informado.
+
+- **GET `/racas/origem/{valor}`**  
+  Lista raças pela origem.
+
+#### 2. Imagens de Gatos
+
+- **GET `/imagens/categoria/{categoria}`**  
+  Busca imagens da categoria desejada na API externa.
+
+#### 3. Métricas e Redirect
+
+- **GET `/`**  
+  Redireciona para `/actuator/prometheus`.
+
+- **GET `/teste-aop/ok`**  
+  Retorna "Sucesso!" (teste de AOP).
+
+- **GET `/teste-aop/erro`**  
+  Gera exceção simulada (usado para medir métricas).
+
+---
+
+### Aplicação de SOLID e Clean Architecture
+
+#### S – Single Responsibility Principle
+Cada classe possui uma única responsabilidade:  
+- `RacaServiceImpl` trata apenas da lógica de raças.  
+- `ImagemServiceImpl` cuida apenas de imagens.  
+- `MetricsAspect` trata apenas da lógica de métricas.
+
+#### O – Open/Closed Principle
+A classe `MetricsAspect` está aberta para extensão com anotações como `@MetricAndLog`, mas fechada para modificação direta.
+
+#### L – Liskov Substitution Principle
+O uso de interfaces como `RacaRepository` e `ImagemRepository` permite substituição por implementações mockadas nos testes.
+
+#### I – Interface Segregation Principle
+Os serviços implementam apenas as interfaces necessárias, e os DTOs separam a lógica de transferência de dados.
+
+#### D – Dependency Inversion Principle
+O Spring injeta dependências via `@Autowired`, desacoplando as classes de suas implementações concretas.
+
+---
+
+### Aplicação de Clean Architecture
+
+| Camada         | Componentes                                 | Responsabilidade                                 |
+| -------------- | ------------------------------------------- | ------------------------------------------------ |
+| Controller     | RacaController, ImagemController            | Entrada da aplicação, expõe endpoints REST       |
+| Service        | RacaServiceImpl, ImagemServiceImpl          | Regras de negócio, manipulação de dados          |
+| Domain (Model) | Raca, Imagem, RacaDto                       | Entidades centrais e DTOs                        |
+| Infrastructure | MetricsAspect, RestTemplate, API TheCatAPI  | Integração com Prometheus e APIs externas        |
+
+---
+
+###  Aplicação de Testes
+
+- **Teste de Unidade:**  
+  `RacaServiceImplTest`, `ImagemServiceImplTest` validam os métodos de negócio.
+
+- **Teste de Integração:**  
+  `RacaControllerTest`, `ImagemControllerTest` testam os endpoints REST.
+
+- **Teste de AOP e Métricas:**  
+  `MetricsAspectTest` testa o interceptor de métricas via `@MetricAndLog`.
+
+- **Cobertura com JaCoCo:**  
+  Projetada para cobertura >80%. Verificada em `target/site/jacoco/index.html`.
+
+
 ## Licença
 
 MIT
