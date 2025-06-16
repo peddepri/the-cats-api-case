@@ -78,7 +78,7 @@ Cada repositório contém imagens Docker, com o último envio realizado há cerc
 A interface do Docker Hub permite fácil navegação entre repositórios, colaborações, configurações, faturamento, uso, pulls e armazenamento, proporcionando um ambiente profissional e organizado para o gerenciamento das imagens.
 
 ```sh
-docker-compose up
+docker-compose up --build
 ```
 
 A aplicação estará em `http://localhost:8080`. 
@@ -93,7 +93,8 @@ Veja [src/main/resources/application.yml](src/main/resources/application.yml) pa
 
 - Prometheus: `http://localhost:9090`
 - Grafana: `http://localhost:3000`
-- Usuário padrão do Grafana Admin e senha Admin. Primeiro acesso irá solicitar a troca da senha.
+- Usuário padrão do Grafana admin e senha admin. Primeiro acesso irá solicitar a troca da senha.
+- Dashboard já criado e configurado.
 
 ## Estrutura do Projeto
 
