@@ -64,7 +64,18 @@ Imagem disponibilizada no DockerHub.
 ```sh
 docker pull ppedde/catsapi:0.0.1
 ```
-![Docker Hub interface showing the ppedde user namespace with three public repositories: catsapi-grafana, catsapi-prometheus, and catsapi. Each repository displays the last pushed time as about 11 hours ago, contains Docker images, and has public visibility. The interface includes navigation options for repositories, collaborations, settings, billing, usage, pulls, and storage. The overall tone is professional and organized, designed for managing Docker repositories.]
+
+## Docker Hub
+
+O namespace de usuário [`ppedde`](https://hub.docker.com/u/ppedde) no Docker Hub possui três repositórios públicos:
+
+- **catsapi-grafana**
+- **catsapi-prometheus**
+- **catsapi**
+
+Cada repositório contém imagens Docker, com o último envio realizado há cerca de 11 horas. Todos possuem visibilidade pública.
+
+A interface do Docker Hub permite fácil navegação entre repositórios, colaborações, configurações, faturamento, uso, pulls e armazenamento, proporcionando um ambiente profissional e organizado para o gerenciamento das imagens.
 
 ```sh
 docker-compose up
