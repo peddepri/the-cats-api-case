@@ -2,7 +2,6 @@
   "annotations": {
     "list": [
       {
-        "$$hashKey": "object:57",
         "builtIn": 1,
         "datasource": "-- Grafana --",
         "enable": true,
@@ -16,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1587743845452,
+  "id": 1,
+  "iteration": 1750098134948,
   "links": [],
   "panels": [
     {
@@ -146,7 +146,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:112",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -155,7 +154,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:113",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -212,7 +210,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "com_priscila_catsapi_service_RandomSumService_run_seconds",
+          "expr": "com_priscila_catsapi_service_service_impl_RacaServiceImpl_importarRacas_seconds{enabled=\"true\",exception=\"none\",quantile=\"0.05\",}",
           "interval": "",
           "legendFormat": "{{quantile}}",
           "refId": "A"
@@ -238,7 +236,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:69",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -247,7 +244,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:70",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -302,10 +298,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(com_priscila_catsapi_service_RandomSumService_run_seconds_count{exception=\"none\",}[$time_range])",
+          "expr": "jvm_threads_states_threads{enabled=\"true\",state=\"waiting\",}",
           "instant": true,
           "interval": "",
-          "legendFormat": "ok",
+          "legendFormat": "Threads Waiting",
           "refId": "A"
         }
       ],
@@ -329,7 +325,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:81",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -338,7 +333,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:82",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -395,9 +389,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "com_priscila_catsapi_service_RandomSumService_run_seconds",
+          "expr": "application_ready_time_seconds{enabled=\"true\",main_application_class=\"com.priscila.catsapi.CatsapiApplication\",}",
           "interval": "",
-          "legendFormat": "{{quantile}}",
+          "legendFormat": "Time",
           "refId": "A"
         }
       ],
@@ -421,7 +415,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:225",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -430,7 +423,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:226",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -488,25 +480,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(com_priscila_catsapi_service_RandomSumService_run_seconds_count{exception=\"none\",}[$time_range])",
+          "expr": "jvm_threads_daemon_threads{enabled=\"true\",}",
           "instant": false,
           "interval": "",
           "legendFormat": "ok",
           "refId": "A"
-        },
-        {
-          "expr": "increase(com_priscila_catsapi_OnDemandController_hi_seconds_count{exception!=\"none\"}[$time_range])",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{exception}}",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(increase(com_priscila_catsapi_OnDemandController_hi_seconds_count[$time_range]))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "total",
-          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -529,7 +507,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:225",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -538,7 +515,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:226",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -564,7 +540,6 @@
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "tags": [],
           "text": "1m",
           "value": "1m"
         },
@@ -573,25 +548,21 @@
         "name": "time_range",
         "options": [
           {
-            "$$hashKey": "object:972",
             "selected": true,
             "text": "1m",
             "value": "1m"
           },
           {
-            "$$hashKey": "object:973",
             "selected": false,
             "text": "10m",
             "value": "10m"
           },
           {
-            "$$hashKey": "object:974",
             "selected": false,
             "text": "30m",
             "value": "30m"
           },
           {
-            "$$hashKey": "object:975",
             "selected": false,
             "text": "1h",
             "value": "1h"
