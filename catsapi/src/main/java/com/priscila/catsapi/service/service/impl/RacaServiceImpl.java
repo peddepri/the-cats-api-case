@@ -75,4 +75,12 @@ public class RacaServiceImpl implements RacaService  {
         }
     }
 
+    public void setRestTemplate(RestTemplate restTemplate) {
+        try {
+            java.lang.reflect.Field field = RacaServiceImpl.class.getDeclaredField("restTemplate");
+            field.setAccessible(true);
+            field.set(this, restTemplate);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao setar RestTemplate para teste", e);    }}
+
 }

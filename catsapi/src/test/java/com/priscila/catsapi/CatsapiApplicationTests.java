@@ -10,4 +10,9 @@ class CatsapiApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void deveExecutarMetodoMain() {
+		CatsapiApplication.main(new String[]{});
+	}
+
 }
