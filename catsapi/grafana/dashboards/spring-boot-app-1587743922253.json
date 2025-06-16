@@ -212,7 +212,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "it_minetti_demo_service_RandomSumService_run_seconds",
+          "expr": "com_priscila_catsapi_service_RandomSumService_run_seconds",
           "interval": "",
           "legendFormat": "{{quantile}}",
           "refId": "A"
@@ -302,7 +302,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(it_minetti_demo_service_RandomSumService_run_seconds_count{exception=\"none\",}[$time_range])",
+          "expr": "increase(com_priscila_catsapi_service_RandomSumService_run_seconds_count{exception=\"none\",}[$time_range])",
           "instant": true,
           "interval": "",
           "legendFormat": "ok",
@@ -395,7 +395,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "it_minetti_demo_service_RandomSumService_runLong_seconds",
+          "expr": "com_priscila_catsapi_service_RandomSumService_run_seconds",
           "interval": "",
           "legendFormat": "{{quantile}}",
           "refId": "A"
@@ -488,21 +488,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(it_minetti_demo_OnDemandController_hi_seconds_count{exception=\"none\"}[$time_range])",
+          "expr": "increase(com_priscila_catsapi_service_RandomSumService_run_seconds_count{exception=\"none\",}[$time_range])",
           "instant": false,
           "interval": "",
           "legendFormat": "ok",
           "refId": "A"
         },
         {
-          "expr": "increase(it_minetti_demo_OnDemandController_hi_seconds_count{exception!=\"none\"}[$time_range])",
+          "expr": "increase(com_priscila_catsapi_OnDemandController_hi_seconds_count{exception!=\"none\"}[$time_range])",
           "hide": false,
           "interval": "",
           "legendFormat": "{{exception}}",
           "refId": "B"
         },
         {
-          "expr": "sum(increase(it_minetti_demo_OnDemandController_hi_seconds_count[$time_range]))",
+          "expr": "sum(increase(com_priscila_catsapi_OnDemandController_hi_seconds_count[$time_range]))",
           "hide": false,
           "interval": "",
           "legendFormat": "total",
@@ -623,7 +623,7 @@
     ]
   },
   "timezone": "",
-  "title": "TheCatsApi-app",
+  "title": "TheCatsApi-app-case",
   "uid": "zxnqJy3Wz",
   "variables": {
     "list": []
