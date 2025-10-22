@@ -1,6 +1,6 @@
 package com.priscila.catsapi.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +22,6 @@ public class Raca {
     private String descricao;
 
     @OneToMany(mappedBy = "raca", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Imagem> imagens;
 }

@@ -1,7 +1,9 @@
 package com.priscila.catsapi.controller;
 
 import com.priscila.catsapi.aop.MetricAndLog;
+import com.priscila.catsapi.model.Imagem;
 import com.priscila.catsapi.model.Raca;
+import com.priscila.catsapi.repository.ImagemRepository;
 import com.priscila.catsapi.repository.RacaRepository;
 import com.priscila.catsapi.service.RacaService;
 import lombok.RequiredArgsConstructor;
@@ -11,18 +13,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/racas")
+@RequestMapping("/api/racas")
 @RequiredArgsConstructor
 public class RacaController {
 
     private final RacaService racaService;
     private final RacaRepository racaRepository;
+    private final ImagemRepository imagemRepository;
 
     @MetricAndLog
     @PostMapping("/importar")
-    public ResponseEntity<Void> importar() {
+    public ResponseEntity<String> importar() {
         racaService.importarRacas();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Raças importadas com sucesso!");
+    }
+
+    @MetricAndLog
+    @GetMapping("/importar")
+    public ResponseEntity<String> importarGet() {
+        racaService.importarRacas();
+        return ResponseEntity.ok("Raças importadas com sucesso!");
     }
 
     @MetricAndLog
@@ -37,6 +47,12 @@ public class RacaController {
         return racaRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @MetricAndLog
+    @GetMapping("/{id}/imagens")
+    public ResponseEntity<List<Imagem>> buscarImagensPorRaca(@PathVariable String id) {
+        return ResponseEntity.ok(imagemRepository.findByRacaId(id));
     }
 
     @MetricAndLog

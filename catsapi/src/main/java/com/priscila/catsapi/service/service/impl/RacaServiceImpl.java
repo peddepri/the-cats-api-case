@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,19 +35,28 @@ public class RacaServiceImpl implements RacaService  {
         RacaDto[] racas = restTemplate.getForObject(API_RACAS, RacaDto[].class);
 
         if (racas != null) {
-            Arrays.stream(racas).forEach(dto -> {
-                Raca raca = Raca.builder()
-                        .id(dto.getId())
-                        .nome(dto.getName())
-                        .descricao(dto.getDescription())
-                        .temperamento(dto.getTemperament())
-                        .origem(dto.getOrigin())
-                        .build();
+            log.info("Encontradas {} raças. Processando em lote...", racas.length);
+            
+            List<Raca> racasParaSalvar = Arrays.stream(racas)
+                .map(dto -> Raca.builder()
+                    .id(dto.getId())
+                    .nome(dto.getName())
+                    .descricao(dto.getDescription())
+                    .temperamento(dto.getTemperament())
+                    .origem(dto.getOrigin())
+                    .build())
+                .toList();
 
-                raca = racaRepository.save(raca); // salva e pega referência com ID
+            // Salva todas as raças de uma vez
+            List<Raca> racasSalvas = racaRepository.saveAll(racasParaSalvar);
+            log.info("Raças salvas com sucesso. Buscando imagens...");
 
-                buscarImagensPorRaca(raca); // busca e salva 3 imagens
-            });
+            // Busca imagens para algumas raças (limitando para evitar timeout)
+            racasSalvas.stream()
+                .limit(10) // Limita a 10 raças para evitar timeout
+                .forEach(this::buscarImagensPorRaca);
+                
+            log.info("Importação concluída!");
         }
     }
 
@@ -56,9 +66,10 @@ public class RacaServiceImpl implements RacaService  {
 
         try {
             List<Object> imagens = Arrays.asList(restTemplate.getForObject(url, Object[].class));
+            List<Imagem> imagensParaSalvar = new ArrayList<>();
 
             imagens.forEach(imagemObj -> {
-                String json = imagemObj.toString(); // gambiarrazinha só p/ exemplo rápido
+                String json = imagemObj.toString();
                 String urlImagem = json.split("url=")[1].split(",")[0].replace("}", "");
 
                 Imagem imagem = Imagem.builder()
@@ -67,8 +78,13 @@ public class RacaServiceImpl implements RacaService  {
                         .categoria(null)
                         .build();
 
-                imagemRepository.save(imagem);
+                imagensParaSalvar.add(imagem);
             });
+
+            // Salva todas as imagens da raça de uma vez
+            if (!imagensParaSalvar.isEmpty()) {
+                imagemRepository.saveAll(imagensParaSalvar);
+            }
 
         } catch (Exception e) {
             log.warn("Erro ao buscar imagens para raça: {}", raca.getNome(), e);

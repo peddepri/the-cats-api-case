@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -32,17 +33,19 @@ public class RacaControllerTest {
 
     @Test
     void deveImportarRacas() {
-        ResponseEntity<Void> response = controller.importar();
+        ResponseEntity<String> response = controller.importar();
         verify(racaService).importarRacas();
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Raças importadas com sucesso!", response.getBody());
     }
 
     @Test
     void deveListarTodas() {
         when(racaRepository.findAll()).thenReturn(List.of(new Raca()));
         ResponseEntity<List<Raca>> response = controller.listarTodas();
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals(1, response.getBody().size());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        List<Raca> body = response.getBody();
+        assertEquals(1, body != null ? body.size() : 0);
     }
 
     @Test
@@ -50,7 +53,7 @@ public class RacaControllerTest {
         Raca raca = new Raca();
         when(racaRepository.findById("abc")).thenReturn(Optional.of(raca));
         ResponseEntity<Raca> response = controller.buscarPorId("abc");
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(raca, response.getBody());
     }
 
@@ -58,7 +61,7 @@ public class RacaControllerTest {
     void deveRetornar404QuandoIdNaoEncontrado() {
         when(racaRepository.findById("abc")).thenReturn(Optional.empty());
         ResponseEntity<Raca> response = controller.buscarPorId("abc");
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
@@ -66,7 +69,7 @@ public class RacaControllerTest {
         when(racaRepository.findByTemperamentoContainingIgnoreCase("docil"))
                 .thenReturn(List.of(new Raca()));
         ResponseEntity<List<Raca>> response = controller.buscarPorTemperamento("docil");
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -74,6 +77,6 @@ public class RacaControllerTest {
         when(racaRepository.findByOrigemContainingIgnoreCase("Egito"))
                 .thenReturn(List.of(new Raca()));
         ResponseEntity<List<Raca>> response = controller.buscarPorOrigem("Egito");
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

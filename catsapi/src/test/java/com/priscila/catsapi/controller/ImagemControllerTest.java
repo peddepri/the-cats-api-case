@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,15 +25,17 @@ public class ImagemControllerTest {
 
     @Test
     void deveImportarChapeu() {
-        ResponseEntity<Void> response = controller.importarChapeu();
+        ResponseEntity<String> response = controller.importarChapeu();
         verify(imagemService).importarImagensComCategoria("chapeu", 1);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Imagens de chapéu importadas com sucesso!", response.getBody());
     }
 
     @Test
     void deveImportarOculos() {
-        ResponseEntity<Void> response = controller.importarOculos();
+        ResponseEntity<String> response = controller.importarOculos();
         verify(imagemService).importarImagensComCategoria("oculos", 4);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Imagens de óculos importadas com sucesso!", response.getBody());
     }
 }
