@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -29,3 +30,7 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+=======
+node_modules
+dist
+>>>>>>> 1a60ddae4a0f8f2bfa426576a16e3bef5442463a

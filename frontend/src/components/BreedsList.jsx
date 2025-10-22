@@ -1,6 +1,7 @@
 import React from 'react';
 import BreedCard from './BreedCard';
 
+<<<<<<< HEAD
 const BreedsList = ({ breeds, loading }) => {
   if (loading) {
     return (
@@ -55,8 +56,29 @@ const BreedsList = ({ breeds, loading }) => {
           <BreedCard key={breed.id} breed={breed} />
         ))}
       </div>
+=======
+const BreedsList = ({ breeds }) => {
+  if (!breeds || breeds.length === 0) {
+    return <p>Nenhuma raça encontrada. Clique em "Importar raças" para popular o banco de dados.</p>;
+  }
+
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+      gap: '16px',
+      marginTop: '20px'
+    }}>
+      {breeds.map((breed) => (
+        <BreedCard key={breed.id} breed={breed} />
+      ))}
+>>>>>>> 1a60ddae4a0f8f2bfa426576a16e3bef5442463a
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default BreedsList;
+=======
+export default BreedsList;
+>>>>>>> 1a60ddae4a0f8f2bfa426576a16e3bef5442463a
